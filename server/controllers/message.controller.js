@@ -103,26 +103,36 @@ export const searchUserByUniqueId = async (req, res) => {
         const { uniqueId } = req.params;
         const loggedInUserId = req.user._id;
 
-        let searchId = uniqueId.toUpperCase();
-        if (!searchId.startsWith("USR-")) {
-            searchId = "USR-" + searchId;
+        // Clean query: trim whitespace and strip leading '@' if provided
+        const cleanQuery = (uniqueId || "").trim().replace(/^@/, "");
+
+        if (!cleanQuery) {
+            return res.status(400).json({ message: "Please provide a username or email to search" });
         }
 
+        // Search by username (case-insensitive exact match) or email
         const user = await User.findOne({
-            uniqueId: searchId,
             _id: { $ne: loggedInUserId },
+            $or: [
+                { username: { $regex: new RegExp(`^${cleanQuery}$`, "i") } },
+                { email: cleanQuery.toLowerCase() },
+                { uniqueId: cleanQuery.toUpperCase() },
+            ],
         }).select("-password");
 
         if (!user) {
-            return res.status(404).json({ message: "No user found with this ID" });
+            return res.status(404).json({ message: `No user found with username @${cleanQuery}` });
         }
 
         res.status(200).json(user);
     } catch (error) {
-        console.error("Error in searchUserByUniqueId: ", error.message);
+        console.error("Error in user search: ", error.message);
         res.status(500).json({ error: "Internal server error" });
     }
 };
+
+export const searchUser = searchUserByUniqueId;
+
 
 export const markMessagesRead = async (req, res) => {
     try {

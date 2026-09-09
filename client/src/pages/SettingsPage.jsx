@@ -323,11 +323,11 @@ const SettingsPage = () => {
                         </FlipCard>
                     )}
 
-                    {/* ADD CONTACT SETTINGS */}
+                    {/* FIND PEOPLE SETTINGS */}
                     {!(flipped.notifications || flipped.chat || flipped.privacy || flipped.theme) && (
                         <FlipCard
-                            title="Add Contact"
-                            description="Find and message new users by ID"
+                            title="Find People"
+                            description="Search users by @username or email"
                             icon={UserPlus}
                             colorClass={{ bg: "bg-info/10", text: "text-info" }}
                             isFlipped={flipped.contacts}
@@ -335,12 +335,12 @@ const SettingsPage = () => {
                         >
                             <div className="space-y-4">
                                 <p className="text-sm text-base-content/70">
-                                    Search for your friends by their unique user ID to start a conversation.
+                                    Search for friends by their @username or email address to start a conversation.
                                 </p>
                                 <form onSubmit={handleSearch} className="flex items-center gap-2 mb-3">
                                     <input
                                         type="text"
-                                        placeholder="Search by ID (USR-XXXXXX)"
+                                        placeholder="Search @username (e.g. @nandhu) or email"
                                         className="input input-bordered w-full"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
@@ -358,24 +358,24 @@ const SettingsPage = () => {
                                 </form>
 
                                 {searchResult && (
-                                    <div className="p-4 border border-base-300 bg-base-200/50 rounded-xl mt-4">
-                                        <p className="text-xs text-base-content/50 mb-3 font-semibold uppercase tracking-wider">Search Result</p>
+                                    <div className="p-4 border border-base-300 bg-base-200/50 rounded-2xl mt-4">
+                                        <p className="text-xs text-base-content/50 mb-3 font-semibold uppercase tracking-wider">User Found</p>
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-4">
                                                 <img
                                                     src={getAvatarUrl(searchResult)}
                                                     alt={getDisplayName(searchResult)}
-                                                    className="size-12 object-cover rounded-full"
+                                                    className="size-12 object-cover rounded-2xl"
                                                     onError={handleAvatarError}
                                                 />
                                                 <div>
-                                                    <div className="font-bold text-lg">{getDisplayName(searchResult)}</div>
-                                                    <div className="text-sm text-primary">{searchResult.uniqueId}</div>
+                                                    <div className="font-bold text-base">{getDisplayName(searchResult)}</div>
+                                                    <div className="text-xs text-[#007AFF] font-medium">@{searchResult.username}</div>
                                                 </div>
                                             </div>
                                             <button
                                                 onClick={() => handleSelectSearchResult(searchResult)}
-                                                className="btn btn-primary btn-sm"
+                                                className="btn btn-primary btn-sm rounded-full px-4"
                                             >
                                                 Message
                                             </button>

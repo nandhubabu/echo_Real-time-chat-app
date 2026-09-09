@@ -214,23 +214,23 @@ const ProfilePage = () => {
                             </p>
                         </div>
 
-                        {/* Unique ID (Read-only) */}
+                        {/* Username Handle (For sharing with friends) */}
                         <div className="space-y-1.5">
                             <div className="text-sm text-base-content/60 flex items-center gap-2">
-                                <Info className="w-4 h-4" />
-                                Unique ID (For adding friends)
+                                <User className="w-4 h-4" />
+                                Username Handle
                             </div>
                             <div className="flex items-center gap-2">
-                                <p className="px-4 py-2.5 bg-base-200 rounded-lg border font-mono text-success flex-1">
-                                    {authUser?.uniqueId || "USR-XXXXXX"}
+                                <p className="px-4 py-2.5 bg-base-200 rounded-lg border font-semibold text-[#007AFF] flex-1">
+                                    @{authUser?.username}
                                 </p>
                                 <button
                                     onClick={() => {
-                                        navigator.clipboard.writeText(authUser?.uniqueId);
-                                        toast.success("ID copied to clipboard!");
+                                        navigator.clipboard.writeText(`@${authUser?.username}`);
+                                        toast.success("Username handle copied!");
                                     }}
-                                    className="btn btn-sm btn-outline btn-success h-[42px]"
-                                    title="Copy ID"
+                                    className="btn btn-sm btn-outline btn-primary h-[42px]"
+                                    title="Copy Handle"
                                 >
                                     Copy
                                 </button>

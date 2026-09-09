@@ -15,8 +15,11 @@ const Sidebar = () => {
         getUsers();
     }, [getUsers]);
 
+    const cleanSearch = searchQuery.trim().toLowerCase().replace(/^@/, "");
     const filteredUsers = users.filter((user) => {
-        const matchesSearch = getDisplayName(user).toLowerCase().includes(searchQuery.toLowerCase());
+        const name = getDisplayName(user).toLowerCase();
+        const username = (user.username || "").toLowerCase();
+        const matchesSearch = name.includes(cleanSearch) || username.includes(cleanSearch);
         const matchesOnline = showOnlineOnly ? onlineUsers.includes(user._id) : true;
         return matchesSearch && matchesOnline;
     });
@@ -46,7 +49,7 @@ const Sidebar = () => {
                     <Search className="pointer-events-none absolute left-3.5 size-4 text-base-content/40" />
                     <input
                         type="text"
-                        placeholder="Search conversations..."
+                        placeholder="Search @username or name..."
                         className="w-full rounded-full border border-base-300/70 bg-base-200/50 py-2 pl-9 pr-8 text-xs placeholder:text-base-content/40 transition-all focus:border-[#007AFF] focus:bg-base-100 focus:outline-none focus:ring-2 focus:ring-[#007AFF]/25"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
