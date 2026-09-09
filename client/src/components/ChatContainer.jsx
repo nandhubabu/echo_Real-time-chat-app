@@ -137,12 +137,9 @@ const ChatContainer = () => {
             {/* Message Thread */}
             <div className="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6 space-y-3.5 custom-scrollbar">
                 {messages.length === 0 && (
-                    <div className="h-full flex flex-col items-center justify-center text-center p-6 text-base-content/40 space-y-2">
-                        <div className="size-14 rounded-3xl bg-[#007AFF]/10 text-[#007AFF] flex items-center justify-center">
-                            <CheckCheck className="size-7" />
-                        </div>
-                        <p className="text-xs font-semibold text-base-content/60">Say hello to {selectedDisplayName}!</p>
-                        <p className="text-[11px] max-w-xs">Send a message or photo to kickstart your conversation.</p>
+                    <div className="h-full flex flex-col items-center justify-center text-center p-6 text-base-content/40 space-y-1.5">
+                        <p className="text-xs font-medium text-base-content/60">No messages yet</p>
+                        <p className="text-[11px] text-base-content/40 max-w-xs">Send a message to begin the conversation with {selectedDisplayName}.</p>
                     </div>
                 )}
 

@@ -20,8 +20,8 @@ const LoginPage = () => {
                     <div className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#007AFF] to-[#00C6FF] text-white shadow-lg shadow-[#007AFF]/25 mb-3">
                         <MessageCircleMore className="size-6" />
                     </div>
-                    <h1 className="text-xl font-bold tracking-tight text-base-content">Welcome back</h1>
-                    <p className="text-xs text-base-content/50 mt-1">Sign in to continue to Echo</p>
+                    <h1 className="text-xl font-bold tracking-tight text-base-content">Sign In</h1>
+                    <p className="text-xs text-base-content/50 mt-1">Enter your credentials to continue</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">

@@ -50,7 +50,7 @@ function App() {
           audio.play().catch(() => { });
         }
         if (settings.messageNotifications ?? true) {
-          toast.success("New message received!", { icon: "💬" });
+          toast.success("New message received");
         }
         if (settings.desktopNotifications && "Notification" in window && Notification.permission === "granted") {
           new Notification("New Message", { body: "You have received a new message" });

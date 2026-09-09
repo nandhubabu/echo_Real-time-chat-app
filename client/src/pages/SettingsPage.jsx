@@ -19,7 +19,7 @@ const THEMES = [
 
 const PREVIEW_MESSAGES = [
     { id: 1, content: "Hey! How's it going?", isSent: false },
-    { id: 2, content: "I'm doing great! Just working on some new features 🚀", isSent: true },
+    { id: 2, content: "Everything is going well. Just reviewing the latest updates.", isSent: true },
 ];
 
 const FlipCard = ({ title, description, icon, colorClass, isFlipped, onToggle, children }) => {

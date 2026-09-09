@@ -1,4 +1,4 @@
-import { X, MoreVertical, SquareCheck, Trash2, Ban, ArrowLeft, Phone, Video } from "lucide-react";
+import { X, MoreVertical, SquareCheck, Trash2, Ban, ArrowLeft } from "lucide-react";
 import { useChatStore } from "../store/useChatStore";
 import { useAuthStore } from "../store/useAuthStore";
 import { getAvatarUrl, getDisplayName, handleAvatarError } from "../lib/utils";
@@ -13,7 +13,6 @@ const ChatHeader = ({ onSelect, onDeleteAll }) => {
         <div className="px-4 py-3 border-b border-base-300/60 bg-base-100/80 backdrop-blur-md">
             <div className="flex min-w-0 items-center justify-between gap-2">
                 <div className="flex min-w-0 items-center gap-3">
-                    {/* Back button for mobile */}
                     <button
                         onClick={() => setSelectedUser(null)}
                         className="btn btn-ghost btn-circle btn-sm -ml-1 lg:hidden hover:bg-base-200"
@@ -46,27 +45,9 @@ const ChatHeader = ({ onSelect, onDeleteAll }) => {
                     </div>
                 </div>
 
-                {/* Right Header Actions */}
                 <div className="flex shrink-0 items-center gap-1">
-                    <button
-                        type="button"
-                        className="btn btn-ghost btn-circle btn-sm text-base-content/60 hover:text-[#007AFF] hover:bg-[#007AFF]/10 transition-colors"
-                        title="Voice Call (Coming Soon)"
-                        disabled
-                    >
-                        <Phone className="size-4" />
-                    </button>
-                    <button
-                        type="button"
-                        className="btn btn-ghost btn-circle btn-sm text-base-content/60 hover:text-[#007AFF] hover:bg-[#007AFF]/10 transition-colors"
-                        title="Video Call (Coming Soon)"
-                        disabled
-                    >
-                        <Video className="size-4" />
-                    </button>
-
                     <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle btn-sm text-base-content/70 hover:bg-base-200">
+                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle btn-sm text-base-content/70 hover:bg-base-200" aria-label="Conversation options">
                             <MoreVertical className="size-4" />
                         </div>
                         <ul tabIndex={0} className="dropdown-content z-[50] menu w-52 rounded-2xl border border-base-300/80 bg-base-100/95 backdrop-blur-xl p-1.5 shadow-xl">
@@ -100,7 +81,7 @@ const ChatHeader = ({ onSelect, onDeleteAll }) => {
                                     type="button"
                                     onClick={async () => {
                                         document.activeElement?.blur();
-                                        if (window.confirm("Are you sure you want to clear the ENTIRE chat for both of you?")) {
+                                        if (window.confirm("Are you sure you want to clear this entire chat?")) {
                                             const { clearChat } = useChatStore.getState();
                                             await clearChat();
                                         }
@@ -117,6 +98,7 @@ const ChatHeader = ({ onSelect, onDeleteAll }) => {
                         onClick={() => setSelectedUser(null)}
                         className="btn btn-ghost btn-circle btn-sm text-base-content/60 hover:bg-base-200 hidden lg:inline-flex"
                         title="Close Chat"
+                        aria-label="Close Chat"
                     >
                         <X className="size-4" />
                     </button>

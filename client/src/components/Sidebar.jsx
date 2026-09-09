@@ -77,7 +77,7 @@ const Sidebar = () => {
                         <span>Online only</span>
                     </button>
                     <span className="text-[11px] text-base-content/50 font-medium">
-                        {onlineCount} {onlineCount === 1 ? "active" : "active"}
+                        {onlineCount} online
                     </span>
                 </div>
             </div>
@@ -85,13 +85,10 @@ const Sidebar = () => {
             {/* User List as Rounded Pill Cards */}
             <div className="min-h-0 flex-1 overflow-y-auto px-2 py-1 custom-scrollbar">
                 {filteredUsers.length === 0 ? (
-                    <div className="text-center py-12 px-4 flex flex-col items-center gap-2">
-                        <div className="size-12 rounded-2xl bg-base-200/60 flex items-center justify-center text-base-content/40 mb-1">
-                            <Search className="size-6" />
-                        </div>
-                        <p className="text-xs font-semibold text-base-content/70">No conversations found</p>
+                    <div className="text-center py-12 px-4 flex flex-col items-center gap-1.5">
+                        <p className="text-xs font-medium text-base-content/60">No conversations found</p>
                         <p className="text-[11px] text-base-content/40 max-w-[200px]">
-                            {searchQuery ? "Try a different search keyword" : "Start messaging your friends or add contacts"}
+                            {searchQuery ? "No matching contacts found" : "Search contacts or start a new conversation"}
                         </p>
                     </div>
                 ) : (
