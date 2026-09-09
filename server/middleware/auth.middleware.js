@@ -30,6 +30,10 @@ export const protectRoute = async (req, res, next) => {
         next(); // Move to the actual controller logic
     } catch (error) {
         console.log("Error in protectRoute middleware: ", error.message);
+        // JWT errors (expired, malformed, invalid) should return 401, not 500
+        if (error.name === "TokenExpiredError" || error.name === "JsonWebTokenError" || error.name === "NotBeforeError") {
+            return res.status(401).json({ message: "Unauthorized - Token invalid or expired" });
+        }
         res.status(500).json({ message: "Internal server error" });
     }
 };

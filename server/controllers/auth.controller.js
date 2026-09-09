@@ -138,6 +138,10 @@ export const checkAuth = async (req, res) => {
         res.status(200).json(user);
     } catch (error) {
         console.log("Error in checkAuth controller:", error.message);
+        // JWT errors (expired, malformed, invalid) should return 401, not 500
+        if (error.name === "TokenExpiredError" || error.name === "JsonWebTokenError" || error.name === "NotBeforeError") {
+            return res.status(401).json({ message: "Unauthorized - Token invalid or expired" });
+        }
         res.status(500).json({ message: "Internal server error" });
     }
 };
