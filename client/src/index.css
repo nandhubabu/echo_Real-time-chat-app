@@ -1,13 +1,62 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-@layer utilities {
-    .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-    }
+@layer base {
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
 
-    .scrollbar-hide {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Custom thin elegant scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(150, 150, 150, 0.25);
+    border-radius: 9999px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(150, 150, 150, 0.45);
+  }
+
+  /* Glassmorphic card surface */
+  .apple-glass {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Royal blue sent bubble */
+  .bubble-apple-sent {
+    background: linear-gradient(135deg, #007AFF 0%, #0062D2 100%);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.22);
+  }
+
+  /* Received bubble subtle styling */
+  [data-theme="light"] .bubble-apple-received {
+    background-color: #f1f3f6;
+    color: #1a1c20;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  [data-theme="dark"] .bubble-apple-received {
+    background-color: #212631;
+    color: #f3f4f6;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
 }
