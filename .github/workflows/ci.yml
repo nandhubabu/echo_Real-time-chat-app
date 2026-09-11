@@ -1,0 +1,27 @@
+name: Frontend CI Pipeline
+
+# 1. The Trigger
+on:
+  pull_request:
+    branches: [ "main" ]
+
+# 2. The Jobs
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # This is the blank temporary server
+
+    # 3. The Steps
+    steps:
+      - name: Download the code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check if it builds
+        run: npm run build
