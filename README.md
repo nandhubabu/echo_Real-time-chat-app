@@ -1,88 +1,172 @@
-# 💬 Real-Time Chat Application
+﻿# ⚡ Echo — Real-Time Chat Application
 
-A modern, highly responsive real-time chat application built on the **MERN** stack (MongoDB, Express, React, Node.js) with **Socket.io** for instant communication.
-
-## 🌟 Features
-- **Real-Time Messaging:** Instantaneous chat powered by Socket.io web sockets.
-- **Dynamic Theming:** Select from 30+ different customized themes powered by DaisyUI.
-- **Smart Contact Discovery:** Search for existing friends instantly using local name filtering, or find new users by navigating to Settings and connecting via their `USR-XXXXXX` Unique ID.
-- **Live Notifications:** See exactly who is online through dynamic green status indicators, and track unread messages with live animated badges.
-- **Asymmetrical Chat Clearing:** Easily clear your local chat history without forcefully destroying the messages for the other user.
-- **Media Support:** Share images safely via Cloudinary integration.
-- **Secure by Default:** Features JWT HTTP-Only cookies, global rate-limiting, and XSS sanitization built directly into the Express backend.
-
-## 🛠️ Tech Stack
-**Frontend:**
-- React (Vite)
-- Zustand (State Management)
-- Tailwind CSS & DaisyUI
-- React Router DOM
-- Axios
-
-**Backend:**
-- Node.js & Express
-- MongoDB (Mongoose)
-- Socket.io
-- Cloudinary (Image Hosting)
-- JWT (JSON Web Tokens)
-- Express Rate Limit & XSS
+Echo is a full-stack, real-time messaging application built using the MERN stack (MongoDB, Express, React, Node.js) and Socket.io. Designed with modern design principles, Echo offers instant communication, user handle discovery (`@username`), secure cookie-based authentication, and a responsive themeable UI.
 
 ---
 
-## 💻 Local Workspace Setup
+## ✨ Features
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/nandhubabu/Real-Time-chat-app.git
-cd Real-Time-chat-app
+- 💬 **Real-Time Messaging:** Instant bidirectional message delivery powered by Socket.io.
+- 👤 **Handle & Search System:** Search and connect with users using `@username`, email, or unique IDs.
+- 🟢 **Online Status Tracking:** Live status indicators for online/offline contact updates.
+- 🔐 **Secure Authentication:** JWT authentication stored securely in `httpOnly` cookies with bcrypt password hashing.
+- 🎨 **Modern Aesthetics:** Clean, Apple/Telegram-inspired pill-card UI with 1-click Light & Dark theme toggle.
+- 🐳 **Docker Support:** Fully containerized setup with Docker & Docker Compose for seamless local development.
+- 🔄 **Automated CI Pipeline:** GitHub Actions workflow verifying automated builds for both client and server on every PR.
+
+---
+
+## 🛠️ Tech Stack
+
+### **Frontend**
+- **Framework:** React 18 (Vite)
+- **Styling:** Tailwind CSS, DaisyUI
+- **State Management:** Zustand
+- **Icons & UI Utilities:** Lucide React, Canvas Confetti
+- **Real-Time Client:** Socket.io-client
+
+### **Backend**
+- **Runtime:** Node.js (ES Modules)
+- **Framework:** Express.js
+- **Database:** MongoDB (Mongoose ORM)
+- **Real-Time Engine:** Socket.io
+- **Security & Auth:** JSON Web Tokens (JWT), bcryptjs, `cookie-parser`, CORS
+
+### **DevOps & Deployment**
+- **CI/CD:** GitHub Actions (`ci.yml`)
+- **Containerization:** Docker & Docker Compose
+- **Hosting:** Vercel (Frontend) & Render (Backend)
+
+---
+
+## 📁 Repository Structure
+
+```
+echo-real-time-chat-app/
+├── .github/
+│   └── workflows/
+│       └── ci.yml          # GitHub Actions CI Workflow
+├── client/                 # React + Vite Frontend
+│   ├── src/
+│   │   ├── components/     # UI Components (Sidebar, ChatContainer, etc.)
+│   │   ├── pages/          # Page Views (LoginPage, SignUpPage, ProfilePage)
+│   │   ├── store/          # Zustand Stores (useAuthStore, useChatStore)
+│   │   └── lib/            # Axios instance and utilities
+│   ├── Dockerfile
+│   └── package.json
+├── server/                 # Express + Socket.io Backend
+│   ├── controllers/        # Route Handlers (auth, message)
+│   ├── models/             # Mongoose Schemas (User, Message)
+│   ├── routes/             # API Endpoints
+│   ├── lib/                # Database and Socket initializations
+│   ├── Dockerfile
+│   └── package.json
+├── docker-compose.yml      # Multi-container Orchestration
+└── README.md
 ```
 
-### 2. Install dependencies
-Open two separate terminal windows.
-```bash
-# Terminal 1: Backend
-cd server
-npm install
+---
 
-# Terminal 2: Frontend
-cd client
-npm install
+## 🚀 Quick Start & Local Setup
+
+### Prerequisites
+- Node.js (v18 or v20 recommended)
+- MongoDB database (Local instance or MongoDB Atlas URI)
+- Git & Docker (optional, for containerized run)
+
+---
+
+### Option A: Running Locally (Node.js)
+
+#### 1. Clone the repository
+```bash
+git clone https://github.com/YOUR_USERNAME/echo-real-time-chat-app.git
+cd echo-real-time-chat-app
 ```
 
-### 3. Setup Environment Variables
-Create a `.env` file inside the `server` directory and configure the following variables:
+#### 2. Configure Environment Variables
+
+Create `.env` file inside the `server/` directory:
 ```env
 PORT=5000
-MONGO_URI=your_mongodb_cluster_string
-JWT_SECRET=your_super_secret_64_character_hex_string
-CLOUDINARY_CLOUD_NAME=your_cloudinary_name
-CLOUDINARY_API_KEY=your_cloudinary_api_key
-CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/echo_db
+JWT_SECRET=your_super_secret_jwt_key
+NODE_ENV=development
 CLIENT_URL=http://localhost:5173
 ```
 
-### 4. Run the Application
-In both terminal windows, start the development servers:
-```bash
-# Server terminal
-npm run dev
+Create `.env` file inside the `client/` directory:
+```env
+VITE_BACKEND_URL=http://localhost:5000
+```
 
-# Client terminal
+#### 3. Install dependencies and start development servers
+
+**Start Backend:**
+```bash
+cd server
+npm install
 npm run dev
 ```
 
-Visit `http://localhost:5173` to view the application!
+**Start Frontend (in a new terminal):**
+```bash
+cd client
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173` in your browser.
 
 ---
 
-## 🚀 Deployment Recommendations
+### Option B: Running with Docker Compose 🐳
 
-Because this application relies on standard WebSockets to maintain real-time bidirectional communication, the backend **must** be deployed to a platform that supports persistent instances, rather than strict serverless functions.
+To spin up both frontend and backend in isolated containers with one command:
 
-1. **Frontend:** Highly recommended to host the `client` folder statically on **Vercel** or **Netlify**.
-2. **Backend:** Highly recommended to host the `server` folder on **Render.com** (Web Service) or **Railway.app**. 
+```bash
+docker-compose up --build
+```
 
-> **Cold Start Tip:** If using Render's Free tier, the server will sleep after 15 minutes of inactivity. Set up a ping using [cron-job.org](https://cron-job.org) hitting your live URL every 14 minutes to prevent the container from ever falling asleep!
+Access the application at `http://localhost:5173`.
 
 ---
-*Built with ❤️ for modern real-time communication.*
+
+## 🧪 CI/CD Pipeline
+
+This repository uses **GitHub Actions** for continuous integration.
+
+Every push or pull request to `main` executes:
+1. **Frontend Job:** Checks out code, sets up Node 20, installs dependencies, and runs `npm run build`.
+2. **Backend Job:** Checks out code, sets up Node 20, installs dependencies, and validates entry point compatibility.
+
+---
+
+## 🔒 Environment Variables Reference
+
+| Variable | Description | Location |
+|---|---|---|
+| `PORT` | Backend server port (default `5000`) | Server |
+| `MONGO_URI` | MongoDB connection string | Server |
+| `JWT_SECRET` | Secret key used for signing JWT tokens | Server |
+| `NODE_ENV` | `development` or `production` | Server |
+| `CLIENT_URL` | Frontend origin URL for CORS policy | Server |
+| `VITE_BACKEND_URL` | Base API URL pointing to Express backend | Client |
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Follow these steps to contribute:
+
+1. Fork the project repository.
+2. Create a feature branch (`git checkout -b feature/amazing-feature`).
+3. Commit your changes (`git commit -m 'Add amazing feature'`).
+4. Push to the branch (`git push origin feature/amazing-feature`).
+5. Open a Pull Request.
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more details.
