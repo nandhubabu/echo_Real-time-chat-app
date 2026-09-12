@@ -1,22 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    tailwindcss(),
-    react(),
-  ],
+  plugins: [react()],
   server: {
+    host: '0.0.0.0',
+    port: 5173,
+    allowedHosts: ['echomessanger.duckdns.org'],
     proxy: {
-      "/api": {
-        target: "http://backend:5000",
+      '/api': {
+        target: 'http://backend:5000',
         changeOrigin: true,
-      },
-      "/socket.io": {
-        target: "http://backend:5000",
-        ws: true,
       },
     },
   },
