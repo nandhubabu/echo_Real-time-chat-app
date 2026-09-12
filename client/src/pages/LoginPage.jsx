@@ -13,7 +13,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center bg-base-200/50 p-4 antialiased">
+        <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center bg-base-200/50 p-4 antialiased">
             <div className="w-full max-w-sm rounded-3xl border border-base-300/80 bg-base-100 p-8 shadow-xl">
                 {/* Brand Badge */}
                 <div className="flex flex-col items-center text-center mb-6">
