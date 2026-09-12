@@ -1,13 +1,13 @@
 services:
   mongodb:
-    image: mongo:latest
+    image: mongo:7.0
     ports:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
 
   backend:
-    build: ./server # Updated to match your Node.js folder
+    image: 194872824128.dkr.ecr.ap-south-1.amazonaws.com/chat-backend:latest
     ports:
       - "5000:5000"
     environment:
@@ -16,9 +16,10 @@ services:
       - mongodb
 
   frontend:
-    build: ./client # Updated to match your React folder
+    image: 194872824128.dkr.ecr.ap-south-1.amazonaws.com/chat-frontend:latest
     ports:
-      - "5173:5173"
+      - "80:5173"
+    command: npm run dev -- --host
     depends_on:
       - backend
 
