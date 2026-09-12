@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-    baseURL: import.meta.env.MODE === "development" ? "/api" : `${import.meta.env.VITE_API_URL || ""}/api`,
+    baseURL: import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : "/api",
     withCredentials: true, // IMPORTANT: This sends the JWT cookie automatically!
 });
