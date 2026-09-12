@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   mongodb:
     image: mongo:7.0
@@ -9,17 +11,18 @@ services:
   backend:
     image: 194872824128.dkr.ecr.ap-south-1.amazonaws.com/chat-backend:latest
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     environment:
       - MONGO_URI=mongodb://mongodb:27017/my_database
+      - JWT_SECRET=your_jwt_secret_key_here
+      - NODE_ENV=production
     depends_on:
       - mongodb
 
   frontend:
     image: 194872824128.dkr.ecr.ap-south-1.amazonaws.com/chat-frontend:latest
     ports:
-      - "80:5173"
-    command: npm run dev -- --host
+      - "127.0.0.1:5173:5173"
     depends_on:
       - backend
 
